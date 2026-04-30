@@ -1,4 +1,4 @@
-package com.example.myapplication
+package pe.edu.easyvet
 
 import org.junit.Test
 

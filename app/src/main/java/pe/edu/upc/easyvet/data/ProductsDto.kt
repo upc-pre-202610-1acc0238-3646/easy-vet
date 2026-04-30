@@ -2,7 +2,7 @@ package pe.edu.upc.easyvet.data
 
 data class ProductsDto(
     val count: Int,
-    val results: List<pe.edu.upc.easyvet.data.ProductDto>
+    val results: List<ProductDto>
 )
 
 data class ProductDto (

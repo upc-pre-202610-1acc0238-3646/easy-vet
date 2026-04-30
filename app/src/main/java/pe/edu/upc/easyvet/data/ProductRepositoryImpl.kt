@@ -7,7 +7,7 @@ import pe.edu.upc.easyvet.domain.Product
 import pe.edu.upc.easyvet.domain.ProductRepository
 
 class ProductRepositoryImpl(
-    private val productService: pe.edu.upc.easyvet.data.ProductService
+    private val productService: ProductService
 ) : ProductRepository {
 
     override suspend fun getProducts(): List<Product> = withContext(Dispatchers.IO) {

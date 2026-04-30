@@ -18,13 +18,13 @@ import androidx.compose.ui.res.painterResource
 fun Main() {
 
     val selectedTab = rememberSaveable {
-        mutableStateOf(_root_ide_package_.pe.edu.upc.easyvet.presentation.navigation.MainTab.Home)
+        mutableStateOf(MainTab.Home)
     }
 
     Scaffold(
         bottomBar = {
             NavigationBar {
-                _root_ide_package_.pe.edu.upc.easyvet.presentation.navigation.MainTab.entries.forEach { tab ->
+                MainTab.entries.forEach { tab ->
                     NavigationBarItem(
                         selected = selectedTab.value == tab,
                         onClick = {

@@ -21,7 +21,7 @@ import pe.edu.upc.easyvet.presentation.home.HomeViewModelFactory
 fun HomeNavHost() {
 
     val navController = rememberNavController()
-    val factory = HomeViewModelFactory(provideProductRepository())
+    val factory = HomeViewModelFactory(provideProductRepository()).create()
     val viewModel: HomeViewModel = viewModel(factory = factory)
 
     val selectedProduct = remember {
