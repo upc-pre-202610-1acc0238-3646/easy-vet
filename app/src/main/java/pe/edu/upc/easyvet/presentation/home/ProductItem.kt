@@ -26,7 +26,6 @@ fun ProductCard(product: Product, onClick: () -> Unit = {}) {
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background
         )
-
     ) {
         Column(modifier = Modifier.padding(8.dp)) {
             AsyncImage(
