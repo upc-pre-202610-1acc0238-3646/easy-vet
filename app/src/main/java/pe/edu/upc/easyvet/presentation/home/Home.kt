@@ -3,6 +3,7 @@ package pe.edu.upc.easyvet.presentation.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -16,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import pe.edu.upc.easyvet.data.FakeData.categories
 import pe.edu.upc.easyvet.domain.Product
 import pe.edu.upc.easyvet.presentation.components.CategoryItem
@@ -30,7 +32,7 @@ fun Home(
 
     val state = homeViewModel.homeState.collectAsState().value
 
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize().padding(8.dp)) {
         Text(
             text = "Categories",
             fontWeight = FontWeight.Bold,
@@ -38,14 +40,11 @@ fun Home(
             color = MaterialTheme.colorScheme.primary
         )
 
-
         LazyRow {
             items(categories) {
                 CategoryItem(it)
-
             }
         }
-
 
         when {
             state.isLoading -> {
@@ -55,7 +54,6 @@ fun Home(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     CircularProgressIndicator()
-
                 }
             }
 
@@ -72,8 +70,6 @@ fun Home(
                     items(state.products) {
                         ProductCard(product = it, onClick = { onProductClick(it) })
                     }
-
-
                 }
             }
 
