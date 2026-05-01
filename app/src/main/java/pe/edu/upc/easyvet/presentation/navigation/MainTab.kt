@@ -3,26 +3,31 @@ package pe.edu.upc.easyvet.presentation.navigation
 import pe.edu.upc.easyvet.R
 
 
-enum class MainTab (
+enum class MainTab(
     val label: String,
-    val resourceId: Int
-){
+    val icon: Int,
+    val iconFilled: Int
+) {
     Home(
         label = "Home",
-        resourceId = R.drawable.home
+        icon = R.drawable.home,
+        iconFilled = R.drawable.home_filled
 
     ),
     Favorites(
         label = "Favorites",
-        resourceId = R.drawable.favorite
+        icon = R.drawable.favorite,
+        iconFilled = R.drawable.favorite_filled
     ),
     Cart(
         label = "Cart",
-        resourceId = R.drawable.shopping_cart
+        icon = R.drawable.shopping_cart,
+        iconFilled = R.drawable.shopping_cart_filled
     ),
     Profile(
         label = "Profile",
-        resourceId = R.drawable.person
+        icon = R.drawable.person,
+        iconFilled = R.drawable.person_filled
     )
 
 }

@@ -1,9 +1,11 @@
 package pe.edu.upc.easyvet.presentation.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -25,14 +27,18 @@ fun Main() {
         bottomBar = {
             NavigationBar {
                 MainTab.entries.forEach { tab ->
+                    val selected = selectedTab.value == tab
                     NavigationBarItem(
-                        selected = selectedTab.value == tab,
+                        selected = selected,
                         onClick = {
                             selectedTab.value = tab
                         },
                         icon = {
-                            Icon(painter = painterResource(tab.resourceId),
-                                tab.label)
+                            Icon(
+                                painter = painterResource(if (selected) tab.iconFilled else tab.icon),
+                                contentDescription = tab.label,
+                                tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                            )
                         },
                         label = {
                             Text(text = tab.label)
@@ -42,9 +48,11 @@ fun Main() {
             }
         }
     ) { paddingValues ->
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(paddingValues)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
 
             when (selectedTab.value) {
                 MainTab.Home -> HomeNavHost()
