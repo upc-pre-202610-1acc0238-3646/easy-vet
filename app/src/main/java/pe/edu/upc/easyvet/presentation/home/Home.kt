@@ -40,7 +40,7 @@ fun Home(
             color = MaterialTheme.colorScheme.primary
         )
 
-        LazyRow {
+        LazyRow(modifier = Modifier.padding(vertical = 8.dp)) {
             items(categories) {
                 CategoryItem(it)
             }
