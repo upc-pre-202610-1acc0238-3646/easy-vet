@@ -1,4 +1,4 @@
-package pe.edu.upc.easyvet.home.data
+package pe.edu.upc.easyvet.home.data.remote
 
 data class ProductsDto(
     val count: Int,

@@ -1,7 +1,7 @@
 package pe.edu.upc.easyvet.home.data
 
 import pe.edu.upc.easyvet.R
-import pe.edu.upc.easyvet.home.domain.Category
+import pe.edu.upc.easyvet.home.domain.model.Category
 
 
 object FakeData {

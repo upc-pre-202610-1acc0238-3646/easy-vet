@@ -1,6 +1,6 @@
 package pe.edu.upc.easyvet.home.presentation.home
 
-import pe.edu.upc.easyvet.home.domain.Product
+import pe.edu.upc.easyvet.home.domain.model.Product
 
 
 data class HomeState(

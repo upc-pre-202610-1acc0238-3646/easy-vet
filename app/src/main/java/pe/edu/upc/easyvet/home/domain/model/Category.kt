@@ -1,4 +1,4 @@
-package pe.edu.upc.easyvet.home.domain
+package pe.edu.upc.easyvet.home.domain.model
 
 data class Category(
     val id: Int,

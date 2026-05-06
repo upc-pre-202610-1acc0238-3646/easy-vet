@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import pe.edu.upc.easyvet.home.domain.ProductRepository
+import pe.edu.upc.easyvet.home.domain.repository.ProductRepository
 
 
 class HomeViewModel(private val productRepository: ProductRepository): ViewModel() {

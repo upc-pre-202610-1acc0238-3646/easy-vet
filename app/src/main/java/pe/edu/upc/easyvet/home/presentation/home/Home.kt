@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import pe.edu.upc.easyvet.home.data.FakeData.categories
-import pe.edu.upc.easyvet.home.domain.Product
+import pe.edu.upc.easyvet.home.domain.model.Product
 import pe.edu.upc.easyvet.home.presentation.components.CategoryItem
 
 

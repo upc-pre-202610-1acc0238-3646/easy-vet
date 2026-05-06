@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import pe.edu.upc.easyvet.home.domain.Product
+import pe.edu.upc.easyvet.home.domain.model.Product
 
 @Composable
 fun ProductCard(product: Product, onClick: () -> Unit = {}) {

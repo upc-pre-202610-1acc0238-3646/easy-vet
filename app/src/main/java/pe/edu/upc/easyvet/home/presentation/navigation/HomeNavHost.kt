@@ -11,7 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
 import pe.edu.upc.easyvet.home.di.RepositoryModule.provideProductRepository
-import pe.edu.upc.easyvet.home.domain.Product
+import pe.edu.upc.easyvet.home.domain.model.Product
 import pe.edu.upc.easyvet.home.presentation.home.Home
 import pe.edu.upc.easyvet.home.presentation.home.HomeViewModel
 import pe.edu.upc.easyvet.home.presentation.home.HomeViewModelFactory
