@@ -1,25 +1,37 @@
 package pe.edu.upc.easyvet.home.presentation.home
 
+import android.net.http.NetworkException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coil3.network.HttpException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pe.edu.upc.easyvet.home.domain.repository.ProductRepository
+import java.net.UnknownHostException
 
 
-class HomeViewModel(private val productRepository: ProductRepository): ViewModel() {
+class HomeViewModel(private val productRepository: ProductRepository) : ViewModel() {
 
-    private val _homeState = MutableStateFlow(
-        HomeState()
-    )
-    val homeState: StateFlow<HomeState> = _homeState
+    val homeState = MutableStateFlow(HomeState())
 
+    fun observeProducts() {
+        viewModelScope.launch {
+            productRepository.getProducts().collect { products ->
+                homeState.update {
+                    it.copy(
+                        products = products
+                    )
+                }
+            }
 
-    fun getProducts() {
+        }
+    }
 
-        _homeState.update {
+    fun syncProducts() {
+
+        homeState.update {
             it.copy(
                 isLoading = true,
                 error = null
@@ -28,20 +40,28 @@ class HomeViewModel(private val productRepository: ProductRepository): ViewModel
         viewModelScope.launch {
 
             try {
-                val products = productRepository.getProducts()
-                _homeState.update {
+                productRepository.syncProducts()
+                homeState.update {
                     it.copy(
-                        products = products,
                         isLoading = false,
                         error = null
                     )
                 }
 
-            } catch (e: Exception) {
-                _homeState.update {
+            } catch (e: UnknownHostException) {
+                homeState.update {
                     it.copy(
                         isLoading = false,
-                        error = e.message
+                    )
+                }
+
+            }
+
+            catch (e: Exception) {
+                homeState.update {
+                    it.copy(
+                        isLoading = false,
+                        error = e.message ?: "An error occurred"
                     )
                 }
             }
@@ -51,7 +71,8 @@ class HomeViewModel(private val productRepository: ProductRepository): ViewModel
     }
 
     init {
-        getProducts()
+        observeProducts()
+        syncProducts()
     }
 
 }
