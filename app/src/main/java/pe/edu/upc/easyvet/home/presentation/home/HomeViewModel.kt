@@ -1,11 +1,8 @@
 package pe.edu.upc.easyvet.home.presentation.home
 
-import android.net.http.NetworkException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import coil3.network.HttpException
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import pe.edu.upc.easyvet.home.domain.repository.ProductRepository
@@ -48,13 +45,13 @@ class HomeViewModel(private val productRepository: ProductRepository) : ViewMode
                     )
                 }
 
-            } catch (e: UnknownHostException) {
+            } catch (_: UnknownHostException) {
                 homeState.update {
                     it.copy(
                         isLoading = false,
+                        error = "No internet connection."
                     )
                 }
-
             }
 
             catch (e: Exception) {
@@ -68,6 +65,12 @@ class HomeViewModel(private val productRepository: ProductRepository) : ViewMode
 
         }
 
+    }
+
+    fun clearError() {
+        homeState.update {
+            it.copy(error = null)
+        }
     }
 
     init {
