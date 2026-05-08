@@ -7,12 +7,10 @@ import coil3.network.HttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import pe.edu.upc.easyvet.home.data.repository.Resource
 import pe.edu.upc.easyvet.home.domain.repository.ProductRepository
-import java.net.UnknownHostException
-
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val productRepository: ProductRepository) :
@@ -43,34 +41,30 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
         }
         viewModelScope.launch {
 
-            try {
-                productRepository.syncProducts()
-                homeState.update {
-                    it.copy(
-                        isLoading = false,
-                        error = null
-                    )
+            when (val result = productRepository.syncProducts()) {
+                Resource.Success -> {
+                    homeState.update {
+                        it.copy(
+                            isLoading = false,
+                            error = null
+                        )
+
+                    }
+
                 }
 
-            } catch (_: UnknownHostException) {
-                homeState.update {
-                    it.copy(
-                        isLoading = false,
-                        error = "No internet connection"
-                    )
-                }
+                is Resource.Error -> {
+                    homeState.update {
+                        it.copy(
+                            isLoading = false,
+                            error = result.message
+                        )
 
-            } catch (e: Exception) {
-                homeState.update {
-                    it.copy(
-                        isLoading = false,
-                        error = e.message ?: "An error occurred"
-                    )
+                    }
+
                 }
             }
-
         }
-
     }
 
     fun clearError() {

@@ -1,5 +1,8 @@
 package pe.edu.upc.easyvet.home.data.remote
 
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
+
 data class ProductsDto(
     val count: Int,
     val results: List<ProductDto>

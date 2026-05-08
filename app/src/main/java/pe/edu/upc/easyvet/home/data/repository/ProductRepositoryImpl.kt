@@ -11,6 +11,7 @@ import pe.edu.upc.easyvet.home.data.mapper.toEntity
 import pe.edu.upc.easyvet.home.data.remote.ProductService
 import pe.edu.upc.easyvet.home.domain.model.Product
 import pe.edu.upc.easyvet.home.domain.repository.ProductRepository
+import java.net.UnknownHostException
 
 class ProductRepositoryImpl @Inject constructor(
     private val productService: ProductService,
@@ -25,18 +26,33 @@ class ProductRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun syncProducts() = withContext(Dispatchers.IO) {
-        val response = productService.getProducts()
+    override suspend fun syncProducts(): Resource = withContext(Dispatchers.IO) {
 
-        if (response.isSuccessful) {
-            response.body()?.let { productsDto ->
-                val entities = productsDto.results.map { productDto ->
-                    productDto.toEntity()
-                }
-                productDao.deleteAllProducts()
-                productDao.insertProducts(entities)
+        return@withContext try {
+            val response = productService.getProducts()
+            if (response.isSuccessful) {
+                response.body()?.let { productsDto ->
+                    val entities = productsDto.results.map { productDto ->
+                        productDto.toEntity()
+                    }
+                    productDao.deleteAllProducts()
+                    productDao.insertProducts(entities)
+                    Resource.Success
+
+                } ?: Resource.Error("Empty response body")
+
+            } else {
+                Resource.Error("Error: ${response.code()}")
             }
+
+        } catch (_: UnknownHostException) {
+            Resource.Error("No internet connection")
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "An error occurred")
+
         }
+
+
     }
 
 
