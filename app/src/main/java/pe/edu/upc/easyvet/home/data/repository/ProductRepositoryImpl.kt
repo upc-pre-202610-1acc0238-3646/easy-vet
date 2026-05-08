@@ -1,5 +1,6 @@
 package pe.edu.upc.easyvet.home.data.repository
 
+import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -11,7 +12,7 @@ import pe.edu.upc.easyvet.home.data.remote.ProductService
 import pe.edu.upc.easyvet.home.domain.model.Product
 import pe.edu.upc.easyvet.home.domain.repository.ProductRepository
 
-class ProductRepositoryImpl(
+class ProductRepositoryImpl @Inject constructor(
     private val productService: ProductService,
     private val productDao: ProductDao
 ) : ProductRepository {

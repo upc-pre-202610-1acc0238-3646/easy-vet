@@ -1,8 +1,10 @@
 package pe.edu.upc.easyvet
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class MyApplication: Application() {
+@HiltAndroidApp
+class MyApplication : Application() {
 
     companion object {
         lateinit var instance: MyApplication

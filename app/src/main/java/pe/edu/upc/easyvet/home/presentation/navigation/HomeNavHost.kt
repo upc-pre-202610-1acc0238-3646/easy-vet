@@ -10,19 +10,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil3.compose.AsyncImage
-import pe.edu.upc.easyvet.home.di.RepositoryModule.provideProductRepository
 import pe.edu.upc.easyvet.home.domain.model.Product
 import pe.edu.upc.easyvet.home.presentation.home.Home
 import pe.edu.upc.easyvet.home.presentation.home.HomeViewModel
-import pe.edu.upc.easyvet.home.presentation.home.HomeViewModelFactory
 
 
 @Composable
 fun HomeNavHost() {
 
     val navController = rememberNavController()
-    val factory = HomeViewModelFactory(provideProductRepository()).create()
-    val viewModel: HomeViewModel = viewModel(factory = factory)
+    val viewModel: HomeViewModel = viewModel()
 
     val selectedProduct = remember {
         mutableStateOf<Product?>(null)

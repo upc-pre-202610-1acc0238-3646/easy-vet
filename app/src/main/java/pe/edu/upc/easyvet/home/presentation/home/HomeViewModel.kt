@@ -4,6 +4,8 @@ import android.net.http.NetworkException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import coil3.network.HttpException
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -12,7 +14,9 @@ import pe.edu.upc.easyvet.home.domain.repository.ProductRepository
 import java.net.UnknownHostException
 
 
-class HomeViewModel(private val productRepository: ProductRepository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val productRepository: ProductRepository) :
+    ViewModel() {
 
     val homeState = MutableStateFlow(HomeState())
 
@@ -55,9 +59,7 @@ class HomeViewModel(private val productRepository: ProductRepository) : ViewMode
                     )
                 }
 
-            }
-
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 homeState.update {
                     it.copy(
                         isLoading = false,
